@@ -1,0 +1,47 @@
+<html>
+<head></head>
+<body>
+	<script>window.jQuery || document.write('<script src="js/libs/jquery-1.6.2.min.js"><\/script>')</script>
+
+  <script defer src="js/plugins.js"></script>
+  <script defer src="js/script.js"></script>
+  <script src="js/CustomTooltip.js"></script>
+  <script src="js/libs/coffee-script.js"></script>
+  <script src="js/libs/d3.min.js"></script>
+  <script src="js/libs/d3.csv.min.js"></script>
+  <script src="js/libs/d3.layout.min.js"></script>
+  <script src="js/libs/d3.geom.min.js"></script>
+  <script src="js/libs/superformula.js"></script>
+<div id="bar-demo"></div>
+<script>
+var data = [{year: 2006, books: 53334},
+            {year: 2007, books: 4333},
+            {year: 2008, books: 4331},
+            {year: 2009, books: 4334},
+            {year: 2010, books: 3500000}];
+
+var barWidth = 40;
+var width = (barWidth + 10) * data.length;
+var height = 200;
+console.log(d3.max(data, function(datum) { return datum.books; }));
+var x = d3.scale.linear().domain([0, data.length]).range([0, width]);
+var y = d3.scale.linear().domain([0, d3.max(data, function(datum) { return datum.books; })]).
+  rangeRound([0, height]);
+
+// add the canvas to the DOM
+var barDemo = d3.select("#bar-demo").
+  append("svg").
+  attr("width", width).
+  attr("height", height);
+
+barDemo.selectAll("rect").
+  data(data).
+  enter().
+  append("rect").
+  attr("x", function(datum, index) { return x(index); }).
+  attr("y", function(datum) { return height - y(datum.books); }).
+  attr("height", function(datum) { return y(datum.books); }).
+  attr("width", barWidth).
+  attr("fill", "#2d578b");
+</script>
+</body>

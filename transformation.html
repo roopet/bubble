@@ -1,0 +1,38 @@
+<html>
+<head>
+	    <style type="text/css">
+
+	path {
+	  stroke-width: 1.5px;
+	  stroke: #666;
+	  fill: #ddd;
+	}
+
+	</style>
+	</head>
+	<body>
+<script src="js/libs/d3.min.js"></script>
+<script src="js/libs/superformula.js"></script>
+<script>
+        var svg = d3.select("body").append("svg:svg").
+		  attr("width", 800).
+		  attr("height", 800);
+
+        var square = superformula()
+            .type("square")
+            .size(100000)
+            .segments(3600);
+
+        var circle = superformula()
+            .type("circle")
+            .size(100000)
+            .segments(3600);
+
+        var path = svg.append("svg:path")
+            .attr("transform", "translate(480,250)")
+            .attr("d", circle)
+                .transition().duration(1500)
+                .attr("d", square);
+</script>
+
+</body>
